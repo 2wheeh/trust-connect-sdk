@@ -3,7 +3,7 @@ import type { NamespaceId } from '@trustwallet/connect-react'
 type NamespaceView = {
 	id: NamespaceId
 	title: string
-	accent: 'evm' | 'solana' | 'bitcoin'
+	accent: 'evm' | 'solana' | 'bitcoin' | 'cosmos'
 	renderActions?: () => React.JSX.Element
 }
 

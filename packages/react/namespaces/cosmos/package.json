@@ -1,0 +1,57 @@
+{
+	"name": "@trustwallet/connect-cosmos-react",
+	"version": "0.0.0",
+	"description": "React hooks for Cosmos namespace in TrustConnect SDK",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.js"
+		},
+		"./typed": {
+			"types": "./dist/typed/index.d.ts",
+			"import": "./dist/typed/index.js"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc",
+		"dev": "tsc --watch",
+		"clean": "rm -rf dist"
+	},
+	"keywords": [
+		"trust",
+		"connect",
+		"sdk",
+		"cosmos",
+		"react",
+		"hooks"
+	],
+	"author": "",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"@trustwallet/connect-cosmos-core": "workspace:*"
+	},
+	"peerDependencies": {
+		"@tanstack/react-query": "^5.0.0",
+		"@trustwallet/connect-headless": "workspace:*",
+		"react": "^18.0.0 || ^19.0.0",
+		"schemos": "^0.2.0"
+	},
+	"peerDependenciesMeta": {
+		"schemos": {
+			"optional": true
+		}
+	},
+	"devDependencies": {
+		"@tanstack/react-query": "5.90.15",
+		"@types/react": "19.2.7",
+		"react": "19.2.3"
+	}
+}

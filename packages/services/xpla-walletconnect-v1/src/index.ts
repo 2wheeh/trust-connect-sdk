@@ -1,0 +1,5 @@
+export { createXplaWalletConnect, XplaWalletConnectV1Service } from './service'
+export type { ClientMeta, CreateXplaWalletConnectOptions } from './service'
+export { XplaWcV1WalletAdapter } from './wallet'
+export { XPLA_WC1_WALLET, XPLA_WC1_BRIDGE, XPLA_WC1_STORAGE_ID } from './constants'
+export { caipReferenceForWcChainId, XPLA_WC_CHAIN_IDS } from './chain-map'

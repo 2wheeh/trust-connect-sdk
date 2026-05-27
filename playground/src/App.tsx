@@ -1,33 +1,40 @@
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { createWalletConnect } from '@trustwallet/connect-walletconnect'
-import { mainnet, polygon } from 'viem/chains'
+// import { mainnet, polygon } from 'viem/chains'
 import trustIcon from './assets/trust-icon.svg'
 import { ActionsSection } from './components'
-import { Eip155Actions } from './namespaces/eip155'
-import { SolanaActions } from './namespaces/solana'
-import { BIP122Actions } from './namespaces/bip122'
+// import { Eip155Actions } from './namespaces/eip155'
+// import { SolanaActions } from './namespaces/solana'
+// import { BIP122Actions } from './namespaces/bip122'
+import { CosmosActions } from './namespaces/cosmos'
 import { ThemeToggle } from './components/ThemeToggle'
-import { createEIP155 } from '@trustwallet/connect-eip155-react'
-import { createBIP122, mainnet as bip122Mainnet } from '@trustwallet/connect-bip122-react'
-import { createSolana, mainnet as solanaMainnet } from '@trustwallet/connect-solana-react'
+// import { createEIP155 } from '@trustwallet/connect-eip155-react'
+// import { createBIP122, mainnet as bip122Mainnet } from '@trustwallet/connect-bip122-react'
+// import { createSolana, mainnet as solanaMainnet } from '@trustwallet/connect-solana-react'
+import { createCosmos, XPLA_TESTNET, FETCHHUB_TESTNET } from '@trustwallet/connect-cosmos-react'
+import { createXplaWalletConnect } from '@trustwallet/connect-xpla-walletconnect-v1'
 import { TrustConnectProvider, useConnections, useTrustModal, type NamespaceId } from '@trustwallet/connect-react'
 
 const queryClient = new QueryClient()
 
 const projectId = import.meta.env.VITE_WALLETCONNECT_ID
 
-const eip155 = createEIP155({
-	chains: [mainnet, polygon],
-	rpcUrls: { 'eip155:1': ['https://ethereum-rpc.publicnode.com'] },
-})
+// const eip155 = createEIP155({
+// 	chains: [mainnet, polygon],
+// 	rpcUrls: { 'eip155:1': ['https://ethereum-rpc.publicnode.com'] },
+// })
 
-const solana = createSolana({
-	chain: solanaMainnet,
-})
+// const solana = createSolana({
+// 	chain: solanaMainnet,
+// })
 
-const bip122 = createBIP122({
-	chain: bip122Mainnet,
+// const bip122 = createBIP122({
+// 	chain: bip122Mainnet,
+// })
+
+const cosmos = createCosmos({
+	chains: [XPLA_TESTNET, FETCHHUB_TESTNET],
 })
 
 const walletConnect = createWalletConnect({
@@ -40,12 +47,22 @@ const walletConnect = createWalletConnect({
 	},
 })
 
+const xplaWcV1 = createXplaWalletConnect({
+	clientMeta: {
+		name: 'TrustConnect Playground',
+		description: 'TrustConnect SDK playground for XPLA Vault Mobile via WalletConnect v1',
+		url: 'https://app.dezswap.io',
+		icons: ['https://app.dezswap.io/favicon.svg'],
+	},
+})
+
 function App() {
 	return (
 		<TrustConnectProvider
 			config={{
-				namespaces: [eip155, solana, bip122],
-				services: [walletConnect],
+				// namespaces: [eip155, solana, bip122, cosmos],
+				namespaces: [cosmos],
+				services: [walletConnect, xplaWcV1],
 			}}
 			// Optional: Set default theme ('light', 'dark', or 'auto')
 			// theme="dark"
@@ -62,34 +79,43 @@ type NamespaceView = {
 	title: string
 	description: string
 	chains: string[]
-	accent: 'evm' | 'solana' | 'bitcoin'
+	// accent: 'evm' | 'solana' | 'bitcoin' | 'cosmos'
+	accent: 'cosmos'
 	renderActions?: () => React.JSX.Element
 }
 
 const namespaceViews: NamespaceView[] = [
+	// {
+	// 	id: 'eip155',
+	// 	title: 'EVM (EIP-155)',
+	// 	description: 'Sign messages and switch networks for Ethereum-compatible chains.',
+	// 	chains: ['Mainnet', 'Polygon'],
+	// 	accent: 'evm',
+	// 	renderActions: () => <Eip155Actions />,
+	// },
+	// {
+	// 	id: 'solana',
+	// 	title: 'Solana',
+	// 	description: 'Wallet Standard + CAIP session tracking for Solana dapps.',
+	// 	chains: ['Mainnet'],
+	// 	accent: 'solana',
+	// 	renderActions: () => <SolanaActions />,
+	// },
+	// {
+	// 	id: 'bip122',
+	// 	title: 'Bitcoin',
+	// 	description: 'Sign messages and transactions with Bitcoin wallets.',
+	// 	chains: ['Mainnet'],
+	// 	accent: 'bitcoin',
+	// 	renderActions: () => <BIP122Actions />,
+	// },
 	{
-		id: 'eip155',
-		title: 'EVM (EIP-155)',
-		description: 'Sign messages and switch networks for Ethereum-compatible chains.',
-		chains: ['Mainnet', 'Polygon'],
-		accent: 'evm',
-		renderActions: () => <Eip155Actions />,
-	},
-	{
-		id: 'solana',
-		title: 'Solana',
-		description: 'Wallet Standard + CAIP session tracking for Solana dapps.',
-		chains: ['Mainnet'],
-		accent: 'solana',
-		renderActions: () => <SolanaActions />,
-	},
-	{
-		id: 'bip122',
-		title: 'Bitcoin',
-		description: 'Sign messages and transactions with Bitcoin wallets.',
-		chains: ['Mainnet'],
-		accent: 'bitcoin',
-		renderActions: () => <BIP122Actions />,
+		id: 'cosmos',
+		title: 'Cosmos (XPLA Cube + Fetch.ai Dorado)',
+		description: 'Sign direct/amino with Keplr or Cosmostation on cosmos-SDK testnets.',
+		chains: ['XPLA Cube', 'Fetch.ai Dorado'],
+		accent: 'cosmos',
+		renderActions: () => <CosmosActions />,
 	},
 ]
 

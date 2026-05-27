@@ -1,0 +1,30 @@
+{
+	"name": "@trustwallet/connect-cosmos-types",
+	"version": "0.0.0",
+	"description": "TypeScript types for Cosmos namespace in TrustConnect SDK",
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"import": "./dist/index.js",
+			"types": "./dist/index.d.ts"
+		}
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "tsc",
+		"clean": "rm -rf dist"
+	},
+	"peerDependencies": {
+		"@trustwallet/connect-core": "workspace:*"
+	},
+	"devDependencies": {
+		"typescript": "5.9.3"
+	},
+	"author": "",
+	"license": "Apache-2.0"
+}
