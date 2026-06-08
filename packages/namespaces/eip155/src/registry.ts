@@ -18,10 +18,12 @@ export class EIP155Registry extends RegistryBase {
 	}
 
 	protected start(): Promise<void> | void {
+		if (typeof window === 'undefined') return
 		window.addEventListener('eip6963:announceProvider', this.onAnnouncement.bind(this))
 		window.dispatchEvent(new Event('eip6963:requestProvider'))
 	}
 	protected stopListeners(): void {
+		if (typeof window === 'undefined') return
 		window.removeEventListener('eip6963:announceProvider', this.onAnnouncement.bind(this))
 	}
 }
