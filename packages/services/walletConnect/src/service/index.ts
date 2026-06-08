@@ -24,6 +24,8 @@ export function createWalletConnect(options: WalletConnectOptions) {
 			return SignClient.init({
 				projectId: options.projectId,
 				metadata: options.metadata,
+				storage: options.storage,
+				logger: options.logger,
 			})
 		})()
 
