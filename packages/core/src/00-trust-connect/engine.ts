@@ -47,7 +47,7 @@ export class TrustConnect<T extends readonly NamespaceConstructor[] = NamespaceC
 				return service
 			}) || []
 
-		this.caipController = new CaipController({ namespaces: this.namespaces, caipWallets })
+		this.caipController = new CaipController({ namespaces: this.namespaces, caipWallets, storage: options.storage })
 		this.start()
 	}
 

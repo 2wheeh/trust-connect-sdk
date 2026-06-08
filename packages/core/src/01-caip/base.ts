@@ -1,12 +1,16 @@
-import { Storage } from '../utils/storage'
+import { Storage, type StorageBackend } from '../utils/storage'
 
 const STORAGE_KEY_PREFIX = 'trust-connect.caip'
 
 export abstract class CaipControllerBase {
 	private lastConnectedWalletId: Storage
 
-	constructor() {
-		this.lastConnectedWalletId = new Storage({ key: `${STORAGE_KEY_PREFIX}.lastWallet`, version: '0.0.0' })
+	constructor({ storage }: { storage?: StorageBackend } = {}) {
+		this.lastConnectedWalletId = new Storage({
+			key: `${STORAGE_KEY_PREFIX}.lastWallet`,
+			version: '0.0.0',
+			backend: storage,
+		})
 	}
 
 	// Storage

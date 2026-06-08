@@ -4,13 +4,18 @@ import { NamespaceEngine } from '../02-namespace/engine'
 import { CaipControllerBase } from './base'
 import { extractAddress, extractChainRef, extractNamespace } from '../utils/caip'
 import { NoActiveSessionError } from '../errors'
+import type { StorageBackend } from '../utils/storage'
 
 export class CaipController extends CaipControllerBase {
 	namespaces: Map<NamespaceId, NamespaceEngine> = new Map()
 	wallets: CaipWallet[]
 
-	constructor({ namespaces, caipWallets }: { namespaces: NamespaceEngine[]; caipWallets?: CaipWallet[] }) {
-		super()
+	constructor({
+		namespaces,
+		caipWallets,
+		storage,
+	}: { namespaces: NamespaceEngine[]; caipWallets?: CaipWallet[]; storage?: StorageBackend }) {
+		super({ storage })
 
 		for (let namespace of namespaces) {
 			this.namespaces.set(namespace.id, namespace)

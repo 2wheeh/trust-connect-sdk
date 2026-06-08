@@ -3,10 +3,19 @@ import { ServiceBase } from '../../03-services/base'
 import { WalletAdapterBase } from '../../05-wallet/base'
 import { NamespaceId } from '../caip'
 import { NamespaceConnection, NamespaceSpecs, Scope } from '../namespace'
+import type { StorageBackend } from '../../utils/storage'
 
 export interface TrustConnectOptions {
 	namespaces: NamespaceConstructor[]
 	services?: ServiceConstructor[]
+	/**
+	 * Optional sync key/value backend used to persist trust-connect's own
+	 * `lastConnectedWalletId` pointer (the CAIP/WalletConnect reconnect pointer).
+	 * Defaults to `window.localStorage` in the browser; in Node, provide an
+	 * fs-backed backend to enable reconnect across restarts. Without it, the
+	 * pointer is not persisted (no-op).
+	 */
+	storage?: StorageBackend
 }
 
 export type NamespaceConstructor = {
