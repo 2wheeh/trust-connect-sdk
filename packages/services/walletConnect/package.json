@@ -23,7 +23,8 @@
 	"scripts": {
 		"build": "tsc",
 		"dev": "tsc --watch",
-		"clean": "rm -rf dist"
+		"clean": "rm -rf dist",
+		"test": "vitest run"
 	},
 	"dependencies": {
 		"@trustwallet/connect-core": "workspace:*",
@@ -43,6 +44,7 @@
 		}
 	},
 	"devDependencies": {
+		"@trustwallet/connect-eip155-core": "workspace:*",
 		"@trustwallet/connect-headless": "workspace:*",
 		"@types/react": "19.2.7",
 		"react": "19.2.3"
